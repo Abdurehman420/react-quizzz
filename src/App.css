@@ -50,12 +50,17 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  padding: 40px;
+
+  padding: 20px;
   border-radius: 7px;
   width: 100%;
   max-width: 800px;
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.2);
   z-index: 20;
+
+  @media screen and (max-width: 700px) {
+    padding: 10px 5px;
+  }
 
   input {
     font-size: 2rem;
@@ -81,12 +86,12 @@ body {
       white-space: nowrap;
 
       @media screen and (max-width: 700px) {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
       }
     }
     th,
     td {
-      padding: 13px 10px;
+      padding: 13px 5px;
 
       text-align: left;
       white-space: nowrap;
@@ -96,7 +101,7 @@ body {
     }
 
     tbody {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       font-weight: 500;
 
       svg {
@@ -110,12 +115,12 @@ body {
         }
       }
       @media screen and (max-width: 700px) {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
       }
 
       tr {
         &:nth-child(even) {
-          background-color: rgba(0, 0, 0, 0.103);
+          background-color: rgba(0, 0, 0, 0.06);
         }
       }
     }
@@ -130,7 +135,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-
+  @media screen and (max-width: 700px) {
+    width: 4.5rem;
+    height: 4.5rem;
+  }
   cursor: pointer;
   transition: all 0.3s ease;
   &:hover {
