@@ -16,6 +16,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import Login from "./components/Login.jsx";
 import AddQuestion from "./components/AddQuestion.jsx";
+import ConfettiExplosion from "react-confetti-explosion";
 
 function App() {
   const { status, index, answer, numberOfQuestions, dispatch } = useQuiz();
@@ -23,7 +24,7 @@ function App() {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showQuestionForm, setShowQuestionForm] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const [explosion, setExplosion] = useState(false);
   const { data } = useQuery({
     queryKey: ["leatherboards"],
     queryFn: getLeatherBoards,
@@ -37,8 +38,14 @@ function App() {
     localStorage.removeItem("sb-yiddftpjhsmxswosuqxw-auth-token");
   }, []);
 
+  const handleFinishBtn = () => {
+    dispatch({ type: "finished" });
+    setExplosion(true);
+  };
+
   return (
     <div className="app">
+      {explosion && <ConfettiExplosion height={"130vh"} particleCount={250} duration={2000} />}
       {showLoginForm && (
         <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setShowLoginForm={setShowLoginForm} />
       )}
@@ -81,14 +88,14 @@ function App() {
                 </button>
               )}
               {answer !== null && index === numberOfQuestions - 1 && (
-                <button className="btn btn-ui" onClick={() => dispatch({ type: "finished" })}>
+                <button className="btn btn-ui" onClick={handleFinishBtn}>
                   Finish
                 </button>
               )}
             </footer>
           </>
         )}
-        {status === "finished" && <FinishScreen />}
+        {status === "finished" && <FinishScreen setExplosion={setExplosion} />}
       </main>
     </div>
   );

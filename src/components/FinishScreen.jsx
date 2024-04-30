@@ -3,7 +3,7 @@ import { useQuiz } from "../QuizContext";
 import { createLeatherBoard } from "../services/apiLeatherboard";
 import toast from "react-hot-toast";
 
-function FinishScreen() {
+function FinishScreen({ setExplosion }) {
   const {
     points,
     maxPoints,
@@ -37,8 +37,7 @@ function FinishScreen() {
     username: username,
     total_questions: selectedQuestions,
     scored_points: points,
-    time_taken:
-      secondsRemaining === -1 ? selectedQuestions * calculateTimeBasedOnDifficulty() : secondsRemaining,
+    time_taken: secondsRemaining === -1 ? selectedQuestions * calculateTimeBasedOnDifficulty() : secondsRemaining,
     total_points: maxPoints,
     total_time: selectedQuestions * calculateTimeBasedOnDifficulty(),
   };
@@ -56,7 +55,7 @@ function FinishScreen() {
   });
   const handleClick = () => {
     dispatch({ type: "restart" });
-
+    setExplosion(false);
     mutate(LeaderBoardData);
   };
 
@@ -92,9 +91,7 @@ function FinishScreen() {
           <span>Time taken</span>
           <span>
             {secondsRemaining === -1
-              ? `${totalmins < 10 ? "0" + totalmins : totalmins}:${
-                  totalsecs < 10 ? "0" + totalsecs : totalsecs
-                }`
+              ? `${totalmins < 10 ? "0" + totalmins : totalmins}:${totalsecs < 10 ? "0" + totalsecs : totalsecs}`
               : `${mins < 10 ? "0" + mins : mins}:${secs < 10 ? "0" + secs : secs}`}
           </span>
         </li>

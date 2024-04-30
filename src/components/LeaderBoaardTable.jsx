@@ -88,12 +88,7 @@ function LeaderBoaardTable({ data, isLoggedIn }) {
 
   return (
     <>
-      <input
-        type="text"
-        value={filtering}
-        onChange={(e) => setFiltering(e.target.value)}
-        placeholder="Search"
-      />
+      <input type="text" value={filtering} onChange={(e) => setFiltering(e.target.value)} placeholder="Search" />
       <table>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -109,7 +104,7 @@ function LeaderBoaardTable({ data, isLoggedIn }) {
           ))}
         </thead>
 
-        <tbody>
+        <tbody className="">
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
               {row.getVisibleCells().map((cell) => (

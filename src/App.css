@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --color-darkest: #343a40;
   --color-dark: #495057;
@@ -69,6 +73,11 @@ body {
     border: 1px solid var(--color-darkest);
     margin-bottom: 10px;
     outline: none;
+
+    @media screen and (max-width: 700px) {
+      font-size: 1.3rem;
+      padding: 5px 10px;
+    }
   }
 
   table {
@@ -94,7 +103,12 @@ body {
       padding: 13px 5px;
 
       text-align: left;
+
       white-space: nowrap;
+
+      @media screen and (max-width: 700px) {
+        text-align: center;
+      }
     }
     th {
       cursor: pointer;
@@ -155,6 +169,11 @@ body {
   button {
     font-size: 1.7rem;
     border-radius: 3px;
+
+    @media screen and (max-width: 700px) {
+      font-size: 1.3rem;
+      padding: 5px 10px;
+    }
   }
 }
 

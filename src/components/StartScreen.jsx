@@ -58,7 +58,7 @@ function StartScreen() {
   return (
     <>
       <div className="start">
-        <h1>Welcome to the Quiz</h1>
+        <h1 className=" ">Welcome to the Quiz</h1>
         <form className="form">
           <label htmlFor="name">Name</label>
           <input
