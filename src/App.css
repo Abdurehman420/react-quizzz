@@ -340,10 +340,6 @@ progress {
   transition: 0.3s;
 }
 
-.btn:not([disabled]):hover {
-  background-color: #ced4da6e;
-}
-
 .btn-option:not([disabled]):hover {
   transform: translateX(1.2rem);
 }
@@ -380,6 +376,7 @@ progress {
 
 .answer {
   transform: translateX(1.2rem);
+  background: rgba(255, 255, 0, 0.192);
 }
 
 .result {
