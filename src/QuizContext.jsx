@@ -1,5 +1,6 @@
-import { createContext, useContext, useEffect, useReducer, useState } from "react";
-import { getQuestions } from "./services/apiQuestions";
+import { createContext, useCallback, useContext, useEffect, useReducer, useState } from "react";
+
+import { useFetchQuestions } from "./hooks/useFetchQuestions";
 
 const QuizContext = createContext();
 
@@ -16,25 +17,25 @@ function QuizProvider({ children }) {
     secondsRemaining: null,
     difficulty: "medium",
   };
+  const { data } = useFetchQuestions();
 
-  const fetchQuestions = async () => {
+  const fetchQuestions = useCallback(() => {
     try {
-      const data = await getQuestions();
-
-      // shuffle questions and options
       const shuffledData = data
-        .map((question) => ({ ...question, options: [...question.options] }))
+        .map((question) => ({
+          ...question,
+          options: [...question.options],
+        }))
         .sort(() => Math.random() - 0.5);
-
       dispatch({ type: "dataReceived", payload: shuffledData });
     } catch (err) {
-      dispatch({ type: "dataFailed" });
+      console.error(err);
     }
-  };
+  }, [data]);
 
   useEffect(() => {
     fetchQuestions();
-  }, []);
+  }, [fetchQuestions]);
 
   function reducer(state, action) {
     const quesion = state.questions[state.index];
@@ -50,7 +51,7 @@ function QuizProvider({ children }) {
         let timeLimitInSeconds;
         switch (state.difficulty) {
           case "easy":
-            timeLimitInSeconds = action.payload * 30;
+            timeLimitInSeconds = action.payload * 3000;
             break;
           case "medium":
             timeLimitInSeconds = action.payload * 20;
@@ -73,10 +74,8 @@ function QuizProvider({ children }) {
           ...state,
           answer: action.payload,
           points: action.payload === quesion.correctOption ? state.points + quesion.points : state.points,
-          correctAnswers:
-            action.payload === quesion.correctOption ? state.correctAnswers + 1 : state.correctAnswers,
-          wrongAnswers:
-            action.payload !== quesion.correctOption ? state.wrongAnswers + 1 : state.wrongAnswers,
+          correctAnswers: action.payload === quesion.correctOption ? state.correctAnswers + 1 : state.correctAnswers,
+          wrongAnswers: action.payload !== quesion.correctOption ? state.wrongAnswers + 1 : state.wrongAnswers,
         };
       case "nextQuestion":
         return {

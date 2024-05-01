@@ -18,15 +18,11 @@
   box-sizing: border-box;
 }
 
-html {
-  font-size: 62.5%;
-}
-
 body {
   min-height: 100vh;
   color: black;
   background-color: white;
-  padding: 3.2rem;
+  padding: 20px;
   font-family: monospace, sans-serif;
 }
 
@@ -36,6 +32,13 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+.main {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 7vh;
+}
+
 .overlay {
   position: absolute;
   top: 0;
@@ -48,18 +51,30 @@ body {
   backdrop-filter: blur(5px);
 }
 
+.neoBtn {
+  border-radius: 2px;
+  padding: 4px 10px;
+  cursor: pointer;
+  border: 2px solid black;
+  box-shadow: 4px 4px 0 1px black;
+  transition: all 100ms;
+  &:focus {
+    transform: translateY(4px);
+    box-shadow: 1px 2px 0 0 black;
+  }
+}
+
 .leaderBoardTable {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-
+  border: 2px solid black;
   padding: 20px;
   border-radius: 7px;
-  width: 100%;
   max-width: 800px;
-  box-shadow: 0 0 7px rgba(0, 0, 0, 0.2);
+  box-shadow: 15px 15px 0px black;
   z-index: 20;
 
   @media screen and (max-width: 700px) {
@@ -67,16 +82,17 @@ body {
   }
 
   input {
-    font-size: 2rem;
     padding: 5px 15px;
-    border-radius: 6px;
-    border: 1px solid var(--color-darkest);
-    margin-bottom: 10px;
-    outline: none;
+    border-radius: 2px;
 
-    @media screen and (max-width: 700px) {
-      font-size: 1.3rem;
-      padding: 5px 10px;
+    margin-bottom: 15px;
+    outline: none;
+    border: 2px solid black;
+    box-shadow: 4px 4px 0 1px black;
+    transition: all 100ms;
+    &:focus {
+      transform: translateY(4px);
+      box-shadow: 1px 2px 0 0 black;
     }
   }
 
@@ -88,15 +104,9 @@ body {
 
     border-collapse: collapse;
     thead {
-      font-size: 2rem;
-      font-weight: 600;
       background-color: var(--color-dark);
       color: var(--color-light);
       white-space: nowrap;
-
-      @media screen and (max-width: 700px) {
-        font-size: 1.3rem;
-      }
     }
     th,
     td {
@@ -115,9 +125,6 @@ body {
     }
 
     tbody {
-      font-size: 1.4rem;
-      font-weight: 500;
-
       svg {
         border: none;
         background-color: transparent;
@@ -127,9 +134,6 @@ body {
         &:hover {
           color: red;
         }
-      }
-      @media screen and (max-width: 700px) {
-        font-size: 1.3rem;
       }
 
       tr {
@@ -141,51 +145,17 @@ body {
   }
 }
 
-.leaderBoardBtn {
-  border-radius: 100%;
-  background-color: rgba(0, 0, 0, 0.045);
-  width: 6rem;
-  height: 6rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  @media screen and (max-width: 700px) {
-    width: 4.5rem;
-    height: 4.5rem;
-  }
-  cursor: pointer;
-  transition: all 0.3s ease;
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.08);
-  }
-}
-
 .pagination {
   display: flex;
+  margin: 5px;
   margin-top: 20px;
-  gap: 5px;
+  gap: 10px;
   justify-content: end;
-
-  button {
-    font-size: 1.7rem;
-    border-radius: 3px;
-
-    @media screen and (max-width: 700px) {
-      font-size: 1.3rem;
-      padding: 5px 10px;
-    }
-  }
-}
-
-.main {
-  width: 100%;
-  max-width: 600px;
-  margin-top: 20vh;
 }
 
 .app-header {
   width: 100%;
-  margin-bottom: 4rem;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -197,24 +167,20 @@ body {
   align-items: center;
 
   button {
-    border: 1px solid var(--color-darkest);
-    border-radius: 3px;
     padding: 5px 10px;
-    font-size: 1.8rem;
-    color: var(--color-darkest);
-    background-color: transparent;
     cursor: pointer;
-    transition: all 0.2s ease;
 
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.08);
+    transition: all 100ms;
+    &:focus {
+      transform: translateY(4px);
+      box-shadow: 1px 2px 0 0 black;
     }
   }
 }
 
 .error {
   text-align: center;
-  font-size: 2rem;
+  font-size: 1.4rem;
   font-weight: 500;
   padding: 5rem;
   background-color: #495057;
@@ -226,42 +192,27 @@ img {
   width: 14rem;
 }
 
-h1 {
-  font-size: 4rem;
-  font-weight: bold;
-}
-
-h2 {
-  font-size: 3.6rem;
-  margin-bottom: 2rem;
-}
-
-h3 {
-  font-size: 2.4rem;
-  font-weight: 600;
-  margin-bottom: 4rem;
-}
-
-h4 {
-  font-size: 2.2rem;
-  font-weight: 600;
-  margin-bottom: 2.4rem;
-}
-
 .start {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 
   button {
-    font-size: 2rem;
     padding: 10px 15px;
-    border-radius: 6px;
-    border: 1px solid var(--color-darkest);
+    border-radius: 2px;
+
     width: 100%;
     outline: none;
     margin-top: 10px;
     cursor: pointer;
+    border-radius: 2px;
+    border: 2px solid black;
+    box-shadow: 4px 4px 0 1px black;
+    transition: all 100ms;
+    &:focus {
+      transform: translateY(4px);
+      box-shadow: 1px 2px 0 0 black;
+    }
   }
 }
 
@@ -270,20 +221,22 @@ h4 {
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
+
   gap: 10px;
   margin-top: 30px;
-  label {
-    font-size: 2.2rem;
-    font-weight: 500;
-  }
 
   input {
-    font-size: 2rem;
     padding: 5px 15px;
-    border-radius: 6px;
-    border: 1px solid var(--color-darkest);
+    border-radius: 2px;
+    border: 2px solid black;
+    box-shadow: 4px 4px 0 1px black;
     width: 100%;
     outline: none;
+    transition: all 100ms;
+    &:focus {
+      transform: translateY(4px);
+      box-shadow: 1px 2px 0 0 black;
+    }
   }
 }
 
@@ -301,7 +254,6 @@ h4 {
   z-index: 20;
   h4 {
     text-align: center;
-    font-size: 3rem;
   }
   form {
     display: flex;
@@ -309,7 +261,6 @@ h4 {
     gap: 1rem;
     margin-top: 1rem;
     input {
-      font-size: 1.6rem;
       padding: 10px 15px;
       border-radius: 3px;
       border: 1px solid var(--color-darkest);
@@ -317,7 +268,6 @@ h4 {
     }
 
     textarea {
-      font-size: 1.8rem;
       padding: 10px 15px;
       border-radius: 3px;
       border: 1px solid var(--color-darkest);
@@ -325,7 +275,6 @@ h4 {
     }
 
     button {
-      font-size: 1.6rem;
       padding: 10px 15px;
       border-radius: 3px;
       border: 1px solid var(--color-darkest);
@@ -336,20 +285,19 @@ h4 {
 }
 
 .numberOfquestions {
-  p {
-    font-size: 2.2rem;
-    font-weight: 500;
-  }
-
   select {
-    font-size: 2rem;
-    padding: 5px 15px;
-    border-radius: 6px;
-    border: 1px solid var(--color-darkest);
-    width: 35%;
+    padding: 5px;
+    border-radius: 2px;
     outline: none;
-    margin: 10px 0;
+    margin-top: 7px;
     cursor: pointer;
+    border: 2px solid black;
+    box-shadow: 4px 4px 0 1px black;
+    transition: all 100ms;
+    &:focus {
+      transform: translateY(4px);
+      box-shadow: 1px 2px 0 0 black;
+    }
   }
   margin-bottom: 30px;
 }
@@ -358,33 +306,32 @@ h4 {
   margin-bottom: 4rem;
   display: grid;
   justify-content: space-between;
-  gap: 1.2rem;
+
   grid-template-columns: auto auto;
-  font-size: 1.8rem;
 }
 
 progress {
   -webkit-appearance: none;
   width: 100%;
-  height: 12px;
+  height: 9px;
   grid-column: 1 / -1;
 }
 
 ::-webkit-progress-bar {
   background-color: var(--color-medium);
-  border-radius: 100px;
+  border-radius: 30px;
 }
 ::-webkit-progress-value {
-  background-color: rgb(163, 41, 163);
+  background-color: black;
   border-radius: 100px;
   transition: all 200ms;
 }
 
 .btn {
   display: block;
-  font-family: inherit;
+
   color: inherit;
-  font-size: 2rem;
+
   border: 2px solid var(--color-dark);
   background-color: var(--color-light);
   padding: 0.5rem 2rem;
@@ -394,7 +341,7 @@ progress {
 }
 
 .btn:not([disabled]):hover {
-  background-color: #ced4daa4;
+  background-color: #ced4da6e;
 }
 
 .btn-option:not([disabled]):hover {
@@ -412,8 +359,6 @@ progress {
 .options {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
-  margin-bottom: 3.2rem;
 }
 
 .btn-option {
@@ -427,14 +372,14 @@ progress {
 }
 
 .btn-option.correct {
-  border-left: 8px solid rgba(25, 192, 25, 0.747);
+  border-left: 6px solid rgba(25, 192, 25, 0.747);
 }
 .btn-option.wrong {
-  border-left: 8px solid rgba(247, 8, 8, 0.918);
+  border-left: 6px solid rgba(247, 8, 8, 0.918);
 }
 
 .answer {
-  transform: translateX(2rem);
+  transform: translateX(1.2rem);
 }
 
 .result {
@@ -442,13 +387,8 @@ progress {
   border-radius: 100px;
   text-align: center;
   padding: 2rem 0;
-  font-size: 2rem;
-  font-weight: 500;
-  margin-bottom: 1.6rem;
 
-  h1 {
-    font-size: 3rem;
-  }
+  margin-bottom: 1.6rem;
 
   ul {
     list-style: none;
@@ -457,9 +397,9 @@ progress {
     li {
       margin: 15px 0;
       display: flex;
-      font-size: 21px;
+
       justify-content: space-between;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.068);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.089);
     }
   }
 }
@@ -478,13 +418,6 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.timer {
-  font-size: 2rem;
-  color: black;
-
-  font-weight: 600;
 }
 
 /* CREDIT: https://dev.to/afif/i-made-100-css-loaders-for-your-next-project-4eje */
@@ -514,38 +447,20 @@ footer {
   }
 }
 
-/* ********** */
-/* First counter example */
-.counter {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  font-size: 2rem;
-  font-weight: bold;
-  margin: 6rem;
-}
-
-.counter * {
-  font-size: inherit;
-  padding: 0.8rem;
-}
-
 .Login {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  padding: 40px;
+
   border-radius: 7px;
-  width: 100%;
+
   max-width: 600px;
-  box-shadow: 0 0 7px rgba(0, 0, 0, 0.2);
+
   z-index: 20;
   h1 {
     text-align: center;
-    font-size: 3rem;
   }
   form {
     display: flex;
@@ -553,30 +468,33 @@ footer {
     gap: 1rem;
     margin-top: 3rem;
     input {
-      font-size: 1.6rem;
       padding: 10px 15px;
       border-radius: 3px;
-      border: 1px solid var(--color-darkest);
+      border: 0.5px solid var(--color-darkest);
       outline: none;
-    }
-
-    label {
-      font-size: 1.6rem;
-      font-weight: 600;
+      transition: all 100ms;
+      border: 2px solid black;
+      box-shadow: 4px 4px 0 1px black;
+      &:focus {
+        transform: translateY(4px);
+        box-shadow: 1px 2px 0 0 black;
+      }
     }
 
     button {
-      font-size: 1.6rem;
       padding: 10px 15px;
       border-radius: 3px;
-      border: 1px solid var(--color-darkest);
+
       outline: none;
       margin-top: 15px;
       cursor: pointer;
+      border: 2px solid black;
+      box-shadow: 4px 4px 0 1px black;
 
-      &:hover {
-        background-color: var(--color-darkest);
-        color: white;
+      transition: all 100ms;
+      &:focus {
+        transform: translateY(4px);
+        box-shadow: 1px 2px 0 0 black;
       }
     }
   }

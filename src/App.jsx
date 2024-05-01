@@ -35,7 +35,7 @@ function App() {
   });
 
   useEffect(() => {
-    localStorage.removeItem("sb-yiddftpjhsmxswosuqxw-auth-token");
+    localStorage.removeItem(import.meta.env.VITE_AUTH_TOKEN);
   }, []);
 
   const handleFinishBtn = () => {
@@ -50,7 +50,7 @@ function App() {
         <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setShowLoginForm={setShowLoginForm} />
       )}
       {showQuestionForm && <AddQuestion setShowQuestionForm={setShowQuestionForm} />}
-      <Toaster position="top-center" containerStyle={{ fontSize: "1.8rem", top: "5rem" }} />
+      <Toaster position="top-center" containerStyle={{ fontSize: ".9rem", top: "4rem" }} />
       <Header
         setShowTable={setShowTable}
         setShowLoginForm={setShowLoginForm}
@@ -61,7 +61,7 @@ function App() {
       {status === "active" || showTable === false ? null : (
         <>
           <div className="overlay"></div>
-          <div className="leaderBoardTable ">
+          <div className="leaderBoardTable w-[96%] lg:w-full   overflow-x-auto ">
             <IoMdClose
               onClick={() => setShowTable(false)}
               size={30}
@@ -80,15 +80,15 @@ function App() {
           <>
             <Progress />
             <Question />
-            <footer>
+            <footer className=" mt-5">
               <Timer />
               {answer !== null && index < numberOfQuestions - 1 && (
-                <button className="btn btn-ui" onClick={() => dispatch({ type: "nextQuestion" })}>
+                <button className="neoBtn !px-6" onClick={() => dispatch({ type: "nextQuestion" })}>
                   Next
                 </button>
               )}
               {answer !== null && index === numberOfQuestions - 1 && (
-                <button className="btn btn-ui" onClick={handleFinishBtn}>
+                <button className="neoBtn !px-6" onClick={handleFinishBtn}>
                   Finish
                 </button>
               )}

@@ -14,13 +14,24 @@ import toast from "react-hot-toast";
 
 function LeaderBoaardTable({ data, isLoggedIn }) {
   const tableData = useMemo(() => {
-    return data
+    const sortData = data
       .map((user) => {
         const score = (user.scored_points / user.total_points).toFixed(2);
 
         return { ...user, score };
       })
-      .sort((a, b) => b.score - a.score);
+      .sort((a, b) => {
+        // Sort by score in descending order
+        if (parseFloat(b.score) !== parseFloat(a.score)) {
+          return parseFloat(b.score) - parseFloat(a.score);
+        }
+        // If scores are equal, sort by time taken in ascending order
+        return parseFloat(a.time_taken) - parseFloat(b.time_taken);
+      });
+
+    const top150 = sortData.slice(0, 150);
+
+    return top150;
   }, [data]);
 
   const [sorting, setSorting] = useState([]);
@@ -89,8 +100,8 @@ function LeaderBoaardTable({ data, isLoggedIn }) {
   return (
     <>
       <input type="text" value={filtering} onChange={(e) => setFiltering(e.target.value)} placeholder="Search" />
-      <table>
-        <thead>
+      <table className="  ">
+        <thead className=" text-sm sm:text-[16px] lg:text-[18px]">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
@@ -104,7 +115,7 @@ function LeaderBoaardTable({ data, isLoggedIn }) {
           ))}
         </thead>
 
-        <tbody className="">
+        <tbody className=" text-[13px] sm:text-sm lg:text-[16px]">
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
               {row.getVisibleCells().map((cell) => (
@@ -119,13 +130,17 @@ function LeaderBoaardTable({ data, isLoggedIn }) {
           ))}
         </tbody>
       </table>
-      <div className="pagination">
-        <button className="btn" disabled={!table.getCanPreviousPage()} onClick={() => table.previousPage()}>
-          Previous Page
-        </button>
-        <button className="btn" disabled={!table.getCanNextPage()} onClick={() => table.nextPage()}>
-          Next Page
-        </button>
+      <div className="pagination  gap-x-4">
+        {table.getCanPreviousPage() && (
+          <button className={`neoBtn`} disabled={!table.getCanPreviousPage()} onClick={() => table.previousPage()}>
+            Previous Page
+          </button>
+        )}
+        {table.getCanNextPage() && (
+          <button className="neoBtn" disabled={!table.getCanNextPage()} onClick={() => table.nextPage()}>
+            Next Page
+          </button>
+        )}
       </div>
     </>
   );

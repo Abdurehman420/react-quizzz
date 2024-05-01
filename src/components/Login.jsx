@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { IoMdClose } from "react-icons/io";
 
 function Login({ isLoggedIn, setIsLoggedIn, setShowLoginForm }) {
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [form, setForm] = useState({ email: "gintama8020@gmail.com", password: "Animetidz@321" });
 
   const { mutate, isPending } = useMutation({
     mutationFn: (form) => login(form),
@@ -30,7 +30,7 @@ function Login({ isLoggedIn, setIsLoggedIn, setShowLoginForm }) {
     return (
       <>
         <div className="overlay"></div>
-        <div className="Login">
+        <div className="Login border border-black  w-3/4  sm:w-full   shadow-neo  p-5 md:p-8   mx-auto  ">
           <div className="closeLoginPage">
             {" "}
             <IoMdClose
@@ -39,7 +39,7 @@ function Login({ isLoggedIn, setIsLoggedIn, setShowLoginForm }) {
               style={{ cursor: "pointer", position: "absolute", top: "10px", right: "10px" }}
             />
           </div>
-          <h1>Login to your account</h1>
+          <h1 className=" text-xl font-semibold lg:text-2xl">Login to your account</h1>
           <form onSubmit={handleSubmit}>
             <label htmlFor="email">Email</label>
             <input

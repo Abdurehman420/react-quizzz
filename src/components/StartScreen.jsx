@@ -58,33 +58,37 @@ function StartScreen() {
   return (
     <>
       <div className="start">
-        <h1 className=" ">Welcome to the Quiz</h1>
+        <h1 className=" text-center text-xl lg:text-3xl font-bold">Welcome to the Quiz</h1>
         <form className="form">
-          <label htmlFor="name">Name</label>
+          <label htmlFor="name" className=" uppercase font-regular lg:text-xl">
+            Enter your Name
+          </label>
           <input
             ref={inputRef}
             type="string"
             name="name"
-            placeholder="Enter your name"
+            maxLength={15}
+            placeholder="Abdur rahman"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
         </form>
 
-        <div className="numberOfquestions" style={{ marginTop: "30px" }}>
-          <p>Select the number of questions</p>
+        <div className="numberOfquestions" style={{ marginTop: "20px" }}>
+          <p className=" uppercase font-regular lg:text-xl">Select the number of questions</p>
           <select
             value={selectedQuestions === numberOfQuestions ? "all" : selectedQuestions}
             onChange={handleQuestionCountChange}
+            className="  w-[40%] "
           >
+            <option value="all">all({numberOfQuestions})</option>
             <option value="5">5</option>
             <option value="10">10</option>
-            <option value="all">all ({numberOfQuestions})</option>
           </select>
         </div>
         <div className="difficulty numberOfquestions">
-          <p>Select Difficulty Level:</p>
-          <select value={difficulty} onChange={handleDifficultyChange} style={{ width: "45%" }}>
+          <p className=" uppercase font-regular lg:text-xl">Select Difficulty Level</p>
+          <select value={difficulty} onChange={handleDifficultyChange} className="   w-[52%]">
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>
@@ -92,7 +96,7 @@ function StartScreen() {
         </div>
 
         {username.length <= 2 ? null : (
-          <button className="btn btn-ui" onClick={handleClick}>
+          <button className="  uppercase font-bold lg:text-lg" onClick={handleClick}>
             Start
           </button>
         )}

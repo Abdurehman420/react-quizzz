@@ -60,10 +60,16 @@ function FinishScreen({ setExplosion }) {
   };
 
   return (
-    <div className="result">
-      <h1>Congrats on finishing the quiz</h1>
-      <ul>
-        <li style={{ fontSize: "25px" }}>
+    <div className="result flex flex-col gap-0">
+      <div className="endingText self-start  w-full flex flex-col   ">
+        <h1 className=" text-xl lg:text-3xl  mb-12">Congrats on finishing the quiz</h1>
+        <p className=" text-left text-sm lg:text-lg text-slate-900">
+          You scored {points} out of {maxPoints}
+        </p>
+      </div>
+
+      <ul className=" text-[15px] lg:text-lg">
+        <li className=" text-xl lg:text-3xl">
           <span>Username</span>
           <span> {username}</span>
         </li>
@@ -103,7 +109,7 @@ function FinishScreen({ setExplosion }) {
           </span>
         </li>
       </ul>
-      <button className="btn btn-ui" onClick={handleClick}>
+      <button className=" neoBtn   lg:text-lg " onClick={handleClick}>
         Restart Quiz
       </button>
     </div>

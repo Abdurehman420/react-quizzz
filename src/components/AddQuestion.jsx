@@ -28,7 +28,6 @@ function AddQuestion({ setShowQuestionForm }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (
       !form.question ||
       !form.options.some((option) => option !== "") ||
@@ -37,9 +36,7 @@ function AddQuestion({ setShowQuestionForm }) {
     ) {
       return;
     }
-
     mutate(form);
-
     setForm({
       question: "",
       options: ["", "", "", ""],
