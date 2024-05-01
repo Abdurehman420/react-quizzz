@@ -1,13 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useQuiz } from "../QuizContext";
 import { getUsernameColumn } from "../services/apiLeatherboard";
 import toast from "react-hot-toast";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import profanityList from "../../profaneWords.json";
 
 function StartScreen() {
   const { numberOfQuestions, dispatch, selectedQuestions, setSelectedQuestions, status } = useQuiz();
   const [username, setUsername] = useState("");
   const [difficulty, setDifficulty] = useState("medium");
+  const [checkProfanity, setCheckProfanity] = useState(false);
 
   const inputRef = useRef(null);
 
@@ -35,9 +37,12 @@ function StartScreen() {
     },
   });
 
+  const profanceCheck = useMemo(() => {
+    return profanityList.some((curseWord) => curseWord.text === username.toLowerCase());
+  }, [username]);
+
   const handleClick = (e) => {
     e.preventDefault();
-
     const userExists = data.some((user) => user.username === username);
 
     if (userExists) {
@@ -45,7 +50,18 @@ function StartScreen() {
       return;
     }
 
+    if (checkProfanity) {
+      toast.error("Username contains profanity. Please choose a different username.");
+      return;
+    }
+
+    if (profanceCheck) {
+      toast.error("Username contains profanity. Please choose a different username.");
+      return;
+    }
+
     dispatch({ type: "setUsername", payload: username });
+
     dispatch({ type: "start", payload: selectedQuestions });
   };
 
@@ -53,6 +69,26 @@ function StartScreen() {
     const selectedDifficulty = event.target.value;
     setDifficulty(selectedDifficulty);
     dispatch({ type: "setDifficulty", payload: selectedDifficulty });
+  };
+
+  const handleUsernameChange = (event) => {
+    const newUsername = event.target.value;
+    setUsername(newUsername);
+
+    const fetchProfanityData = async () => {
+      const res = await fetch("https://vector.profanity.dev", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: newUsername }),
+      });
+
+      if (!res.ok) return;
+
+      const data = await res.json();
+      setCheckProfanity(data.isProfanity);
+    };
+
+    fetchProfanityData();
   };
 
   return (
@@ -70,7 +106,12 @@ function StartScreen() {
             maxLength={15}
             placeholder="Abdur rahman"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={handleUsernameChange}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleClick(e);
+              }
+            }}
           />
         </form>
 

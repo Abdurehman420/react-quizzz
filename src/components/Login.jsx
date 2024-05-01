@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { IoMdClose } from "react-icons/io";
 
 function Login({ isLoggedIn, setIsLoggedIn, setShowLoginForm }) {
-  const [form, setForm] = useState({ email: "gintama8020@gmail.com", password: "Animetidz@321" });
+  const [form, setForm] = useState({ email: "", password: "" });
 
   const { mutate, isPending } = useMutation({
     mutationFn: (form) => login(form),

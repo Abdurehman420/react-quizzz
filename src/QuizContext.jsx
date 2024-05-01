@@ -28,9 +28,7 @@ function QuizProvider({ children }) {
         }))
         .sort(() => Math.random() - 0.5);
       dispatch({ type: "dataReceived", payload: shuffledData });
-    } catch (err) {
-      console.error(err);
-    }
+    } catch (err) {}
   }, [data]);
 
   useEffect(() => {
@@ -51,7 +49,7 @@ function QuizProvider({ children }) {
         let timeLimitInSeconds;
         switch (state.difficulty) {
           case "easy":
-            timeLimitInSeconds = action.payload * 3000;
+            timeLimitInSeconds = action.payload * 30;
             break;
           case "medium":
             timeLimitInSeconds = action.payload * 20;
