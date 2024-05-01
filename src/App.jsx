@@ -17,6 +17,7 @@ import { Toaster } from "react-hot-toast";
 import Login from "./components/Login.jsx";
 import AddQuestion from "./components/AddQuestion.jsx";
 import ConfettiExplosion from "react-confetti-explosion";
+import { logOut } from "./services/apiAuth.js";
 
 function App() {
   const { status, index, answer, numberOfQuestions, dispatch } = useQuiz();
@@ -35,7 +36,7 @@ function App() {
   });
 
   useEffect(() => {
-    localStorage.removeItem(import.meta.env.VITE_AUTH_TOKEN);
+    logOut();
   }, []);
 
   const handleFinishBtn = () => {
