@@ -46,7 +46,7 @@ function App() {
 
   return (
     <div className="app">
-      {explosion && <ConfettiExplosion height={"130vh"} particleCount={250} duration={2000} />}
+      {explosion && <ConfettiExplosion height={"120vh"} particleCount={170} duration={2500} />}
       {showLoginForm && (
         <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setShowLoginForm={setShowLoginForm} />
       )}
