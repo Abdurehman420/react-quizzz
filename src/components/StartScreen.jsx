@@ -102,6 +102,7 @@ function StartScreen() {
           <input
             ref={inputRef}
             type="string"
+            className=" text-[16px] lg:text-lg"
             name="name"
             maxLength={15}
             placeholder="Abdur rahman"
@@ -120,7 +121,7 @@ function StartScreen() {
           <select
             value={selectedQuestions === numberOfQuestions ? "all" : selectedQuestions}
             onChange={handleQuestionCountChange}
-            className="  w-[40%] "
+            className="  w-[40%]  text-[16px] lg:text-lg"
           >
             <option value="all">all({numberOfQuestions})</option>
             <option value="5">5</option>
@@ -129,7 +130,7 @@ function StartScreen() {
         </div>
         <div className="difficulty numberOfquestions">
           <p className=" uppercase font-regular lg:text-xl">Select Difficulty Level</p>
-          <select value={difficulty} onChange={handleDifficultyChange} className="   w-[52%]">
+          <select value={difficulty} onChange={handleDifficultyChange} className="   w-[52%] text-[16px] lg:text-lg">
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>
@@ -137,7 +138,7 @@ function StartScreen() {
         </div>
 
         {username.length <= 2 ? null : (
-          <button className="  uppercase font-bold lg:text-lg" onClick={handleClick}>
+          <button className="  uppercase font-bold lg:text-lg  !py-2" onClick={handleClick}>
             Start
           </button>
         )}
