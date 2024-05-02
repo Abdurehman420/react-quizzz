@@ -62,7 +62,7 @@ function App() {
       {status === "active" || showTable === false ? null : (
         <>
           <div className="overlay"></div>
-          <div className="leaderBoardTable w-[96%] lg:w-full   overflow-x-auto ">
+          <div className="leaderBoardTable w-[96%] lg:w-full overflow-x-auto    ">
             <IoMdClose
               onClick={() => setShowTable(false)}
               size={30}

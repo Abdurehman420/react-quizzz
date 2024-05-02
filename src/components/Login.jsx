@@ -30,7 +30,7 @@ function Login({ isLoggedIn, setIsLoggedIn, setShowLoginForm }) {
     return (
       <>
         <div className="overlay"></div>
-        <div className="Login border border-black  w-3/4  sm:w-full   shadow-neo  p-5 md:p-8   mx-auto  ">
+        <div className="Login border border-black    w-3/4  sm:w-full   shadow-neo  p-5 md:p-8   mx-auto  ">
           <div className="closeLoginPage">
             {" "}
             <IoMdClose
@@ -39,8 +39,8 @@ function Login({ isLoggedIn, setIsLoggedIn, setShowLoginForm }) {
               style={{ cursor: "pointer", position: "absolute", top: "10px", right: "10px" }}
             />
           </div>
-          <h1 className=" text-xl font-semibold lg:text-2xl">Login to your account</h1>
-          <form onSubmit={handleSubmit}>
+          <h1 className=" text-xl mt-8 sm:mt-10 font-semibold lg:text-2xl">Login to your account</h1>
+          <form onSubmit={handleSubmit} className="mt-5 sm:mt-10">
             <label htmlFor="email">Email</label>
             <input
               type="email"

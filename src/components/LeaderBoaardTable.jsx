@@ -57,7 +57,7 @@ function LeaderBoaardTable({ data, isLoggedIn }) {
       accessorKey: "total_questions",
     },
     {
-      header: "Score / total",
+      header: "Score /  total",
       accessorFn: (row) => `${row.scored_points} / ${row.total_points}`,
     },
     {
@@ -100,8 +100,8 @@ function LeaderBoaardTable({ data, isLoggedIn }) {
   return (
     <>
       <input type="text" value={filtering} onChange={(e) => setFiltering(e.target.value)} placeholder="Search" />
-      <table className="  ">
-        <thead className=" text-sm sm:text-[16px] lg:text-[18px]">
+      <table className="    ">
+        <thead className=" text-[11px] sm:text-[16px] lg:text-[18px]  text-wrap ">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
@@ -115,7 +115,7 @@ function LeaderBoaardTable({ data, isLoggedIn }) {
           ))}
         </thead>
 
-        <tbody className=" text-[13px] sm:text-sm lg:text-[16px]">
+        <tbody className=" text-[12px] sm:text-sm lg:text-[16px]">
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
               {row.getVisibleCells().map((cell) => (
@@ -132,12 +132,16 @@ function LeaderBoaardTable({ data, isLoggedIn }) {
       </table>
       <div className="pagination  gap-x-4">
         {table.getCanPreviousPage() && (
-          <button className={`neoBtn`} disabled={!table.getCanPreviousPage()} onClick={() => table.previousPage()}>
+          <button
+            className={`neoBtnActive`}
+            disabled={!table.getCanPreviousPage()}
+            onClick={() => table.previousPage()}
+          >
             Previous Page
           </button>
         )}
         {table.getCanNextPage() && (
-          <button className="neoBtn" disabled={!table.getCanNextPage()} onClick={() => table.nextPage()}>
+          <button className="neoBtnActive" disabled={!table.getCanNextPage()} onClick={() => table.nextPage()}>
             Next Page
           </button>
         )}
