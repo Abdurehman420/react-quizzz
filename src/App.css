@@ -1,7 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 :root {
   --color-darkest: #343a40;
   --color-dark: #495057;
@@ -23,7 +23,8 @@ body {
   color: black;
   background-color: white;
   padding: 20px;
-  font-family: monospace, sans-serif;
+  font-family: "Geist", serif;
+  font-style: normal;
 }
 
 .app {
@@ -429,7 +430,6 @@ footer {
   align-items: center;
 }
 
-/* CREDIT: https://dev.to/afif/i-made-100-css-loaders-for-your-next-project-4eje */
 .loader {
   width: 50px;
   height: 24px;

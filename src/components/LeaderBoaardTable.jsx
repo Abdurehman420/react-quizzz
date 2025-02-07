@@ -29,7 +29,7 @@ function LeaderBoaardTable({ data, isLoggedIn }) {
         return parseFloat(a.time_taken) - parseFloat(b.time_taken);
       });
 
-    const top150 = sortData.slice(0, 150);
+    const top150 = sortData?.slice(0, 150);
 
     return top150;
   }, [data]);
@@ -140,7 +140,7 @@ function LeaderBoaardTable({ data, isLoggedIn }) {
   return (
     <>
       <input type="text" value={filtering} onChange={(e) => setFiltering(e.target.value)} placeholder="Search" />
-      <table className="       ">
+      <table className="    ">
         <thead className=" text-[11px] sm:text-[16px] lg:text-[18px]  text-wrap ">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
@@ -155,7 +155,7 @@ function LeaderBoaardTable({ data, isLoggedIn }) {
           ))}
         </thead>
 
-        <tbody className=" text-[12px] sm:text-sm lg:text-[16px] min-h-[50vh] ">
+        <tbody className=" text-[12px] sm:text-sm lg:text-[16px]  ">
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id} className="!text-center">
               {row.getVisibleCells().map((cell) => (

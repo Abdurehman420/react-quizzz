@@ -93,16 +93,19 @@ function StartScreen() {
 
   return (
     <>
-      <div className="start">
-        <h1 className=" text-center text-xl lg:text-3xl font-bold">Welcome to the Quiz</h1>
-        <form className="form">
-          <label htmlFor="name" className=" uppercase font-regular lg:text-xl">
+      <div className="start    ">
+        <h1 className=" text-center text-xl lg:text-4xl font-bold">Welcome to the Quiz</h1>
+        <form className="form w-full   bg-white p-6 rounded-lg shadow-md">
+          <label htmlFor="name" className=" uppercase font-bold lg:text-xl">
             Enter your Name
           </label>
+          <p className=" leading-5 text-sm">
+            The name you write here will also appear on the leaderboard along with your score
+          </p>
           <input
             ref={inputRef}
             type="string"
-            className=" text-[16px] lg:text-lg"
+            className=" text-[16px] lg:text-lg w-full"
             name="name"
             maxLength={15}
             placeholder="Abdur rahman"
@@ -116,13 +119,15 @@ function StartScreen() {
           />
         </form>
 
-        <div className="numberOfquestions" style={{ marginTop: "20px" }}>
-          <p className=" uppercase font-regular lg:text-xl">Select the number of questions</p>
-          <p className=" max-w-lg">You will score points based on the number of questions you select</p>
+        <div className="numberOfquestions w-full   bg-white p-6 rounded-lg shadow-md" style={{ marginTop: "20px" }}>
+          <p className=" uppercase  font-bold lg:text-xl">Select the number of questions</p>
+          <p className=" max-w-lg leading-5 text-sm mt-3">
+            You will score points based on the number of questions you select
+          </p>
           <select
             value={selectedQuestions === numberOfQuestions ? "all" : selectedQuestions}
             onChange={handleQuestionCountChange}
-            className="  w-[40%]  text-[16px] lg:text-lg"
+            className="  w-full  text-[16px] lg:text-lg"
           >
             <option value="all">all({numberOfQuestions})</option>
             <option value="5">5</option>
@@ -130,10 +135,12 @@ function StartScreen() {
             <option value="20">20</option>
           </select>
         </div>
-        <div className="difficulty numberOfquestions">
-          <p className=" uppercase font-regular lg:text-xl">Select Difficulty Level</p>
-          <p className=" text-sm">The higher the difficulty , the lesser time you have to answer the quiz questions</p>
-          <select value={difficulty} onChange={handleDifficultyChange} className="   w-[52%] text-[16px] lg:text-lg">
+        <div className="difficulty numberOfquestions  w-full   bg-white p-6 rounded-lg shadow-md">
+          <p className=" uppercase  font-bold lg:text-xl">Select Difficulty Level</p>
+          <p className=" text-sm leading-5 mt-3">
+            The higher the difficulty , the lesser time you have to answer the quiz questions
+          </p>
+          <select value={difficulty} onChange={handleDifficultyChange} className="  w-full text-[16px] lg:text-lg">
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>

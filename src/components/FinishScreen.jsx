@@ -38,8 +38,8 @@ function FinishScreen({ setExplosion }) {
   return (
     <div className="result flex flex-col gap-0">
       <div className="endingText self-start  w-full flex flex-col   ">
-        <h1 className=" text-xl lg:text-3xl  mb-12">Congrats on finishing the quiz</h1>
-        <p className=" text-left text-sm lg:text-lg text-slate-900">
+        <h1 className=" text-xl lg:text-3xl  mb-12  font-extrabold">Congrats on finishing the quiz</h1>
+        <p className="  text-center text-sm lg:text-2xl font-bold text-slate-900">
           You scored {points} out of {maxPoints}
         </p>
       </div>

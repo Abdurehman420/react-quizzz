@@ -36,6 +36,7 @@ function App() {
     maxPoints,
     secondsRemaining,
     difficulty,
+    restartQuiz,
   } = useQuiz();
   const [showTable, setShowTable] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
@@ -93,6 +94,11 @@ function App() {
     mutate(LeaderBoardData);
   };
 
+  const handleLeaveQuiz = () => {
+    dispatch({ type: "restart" });
+    restartQuiz();
+  };
+
   return (
     <div className="app">
       {explosion && <ConfettiExplosion height={"120vh"} particleCount={170} duration={2500} />}
@@ -101,13 +107,17 @@ function App() {
       )}
       {showQuestionForm && <AddQuestion setShowQuestionForm={setShowQuestionForm} />}
       <Toaster position="top-center" containerStyle={{ fontSize: ".9rem", top: "4rem" }} />
-      <Header
-        setShowTable={setShowTable}
-        setShowLoginForm={setShowLoginForm}
-        isLoggedIn={isLoggedIn}
-        setIsLoggedIn={setIsLoggedIn}
-        setShowQuestionForm={setShowQuestionForm}
-      />
+      {status === "active" ? (
+        <div className=" mt-[12vh]"></div>
+      ) : (
+        <Header
+          setShowTable={setShowTable}
+          setShowLoginForm={setShowLoginForm}
+          isLoggedIn={isLoggedIn}
+          setIsLoggedIn={setIsLoggedIn}
+          setShowQuestionForm={setShowQuestionForm}
+        />
+      )}
       {status === "active" || showTable === false ? null : (
         <>
           <div className="overlay"></div>
@@ -130,18 +140,23 @@ function App() {
           <>
             <Progress />
             <Question />
-            <footer className=" mt-5">
+            <footer className=" mt-6 flex  justify-between items-center  flex-col gap-5  lg:flex-row ">
               <Timer />
-              {answer !== null && index < numberOfQuestions - 1 && (
-                <button className="neoBtn !px-6" onClick={() => dispatch({ type: "nextQuestion" })}>
-                  Next
+              <div className=" flex gap-5 flex-col lg:flex-row  w-full lg:w-auto ">
+                {answer !== null && index < numberOfQuestions - 1 && (
+                  <button className="neoBtn !px-6      " onClick={() => dispatch({ type: "nextQuestion" })}>
+                    Next
+                  </button>
+                )}
+                {answer !== null && index === numberOfQuestions - 1 && (
+                  <button className="neoBtn !px-6" onClick={handleFinishBtn}>
+                    Finish
+                  </button>
+                )}
+                <button className="neoBtn !px-6" onClick={handleLeaveQuiz}>
+                  Leave
                 </button>
-              )}
-              {answer !== null && index === numberOfQuestions - 1 && (
-                <button className="neoBtn !px-6" onClick={handleFinishBtn}>
-                  Finish
-                </button>
-              )}
+              </div>
             </footer>
           </>
         )}
