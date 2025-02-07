@@ -18,20 +18,68 @@ import Login from "./components/Login.jsx";
 import AddQuestion from "./components/AddQuestion.jsx";
 import ConfettiExplosion from "react-confetti-explosion";
 import { logOut } from "./services/apiAuth.js";
+import { useFetchQuestions } from "./hooks/useFetchQuestions.jsx";
+import { createLeatherBoard } from "./services/apiLeatherboard.js";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 function App() {
-  const { status, index, answer, numberOfQuestions, dispatch } = useQuiz();
+  const {
+    status,
+    index,
+    answer,
+    numberOfQuestions,
+    dispatch,
+    username,
+    selectedQuestions,
+    points,
+    maxPoints,
+    secondsRemaining,
+    difficulty,
+  } = useQuiz();
   const [showTable, setShowTable] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showQuestionForm, setShowQuestionForm] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [explosion, setExplosion] = useState(false);
+  const { isLoading, error } = useFetchQuestions();
   const { data } = useQuery({
     queryKey: ["leatherboards"],
     queryFn: getLeatherBoards,
     onSuccess: () => {},
     onError: (error) => {
       console.error(error);
+    },
+  });
+
+  const calculateTimeBasedOnDifficulty = () => {
+    if (difficulty === "easy") {
+      return 30;
+    } else if (difficulty === "medium") {
+      return 20;
+    } else {
+      return 15;
+    }
+  };
+
+  const LeaderBoardData = {
+    username: username,
+    total_questions: selectedQuestions,
+    scored_points: points,
+    time_taken: secondsRemaining === -1 ? selectedQuestions * calculateTimeBasedOnDifficulty() : secondsRemaining,
+    total_points: maxPoints,
+    total_time: selectedQuestions * calculateTimeBasedOnDifficulty(),
+  };
+
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation({
+    mutationFn: createLeatherBoard,
+    onSuccess: () => {
+      toast.success("Score saved. Check the leaderboard");
+      queryClient.invalidateQueries({ queryKey: ["leatherboards"] });
+    },
+    onError: () => {
+      toast.error("error  saving score to leaderboard");
     },
   });
 
@@ -42,6 +90,7 @@ function App() {
   const handleFinishBtn = () => {
     dispatch({ type: "finished" });
     setExplosion(true);
+    mutate(LeaderBoardData);
   };
 
   return (
@@ -74,8 +123,8 @@ function App() {
       )}
 
       <main className="main">
-        {status === "loading" && <Loader />}
-        {status === "error" && <Error />}
+        {isLoading && <Loader />}
+        {error && <Error />}
         {status === "ready" && <StartScreen />}
         {status === "active" && (
           <>

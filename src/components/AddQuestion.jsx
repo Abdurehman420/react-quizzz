@@ -41,7 +41,7 @@ function AddQuestion({ setShowQuestionForm }) {
       question: "",
       options: ["", "", "", ""],
       correctOption: "",
-      points: "10",
+      points: "",
     });
   };
 
@@ -85,6 +85,14 @@ function AddQuestion({ setShowQuestionForm }) {
             min={0}
             max={3}
             onChange={(e) => setForm({ ...form, correctOption: parseInt(e.target.value) })}
+          />
+          <input
+            type="number"
+            placeholder="Enter the Points for this question"
+            value={form.points}
+            min={10}
+            max={30}
+            onChange={(e) => setForm({ ...form, points: parseInt(e.target.value) })}
           />
 
           <button type="submit" disabled={isLoading}>

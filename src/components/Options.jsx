@@ -11,7 +11,7 @@ function Options() {
     () => question.options.map((option, index) => ({ option, index })),
     [question.options]
   );
-  console.log(optionsWithIndices);
+
   // Shuffle the array of objects
   const shuffledOptionsWithIndices = useMemo(() => {
     const shuffledArray = [...optionsWithIndices];

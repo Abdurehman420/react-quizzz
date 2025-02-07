@@ -1,13 +1,9 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useQuiz } from "../QuizContext";
-import { createLeatherBoard } from "../services/apiLeatherboard";
-import toast from "react-hot-toast";
 
 function FinishScreen({ setExplosion }) {
   const {
     points,
     maxPoints,
-    dispatch,
     correctAnswers,
     wrongAnswers,
     secondsRemaining,
@@ -15,6 +11,7 @@ function FinishScreen({ setExplosion }) {
     numberOfQuestions,
     username,
     difficulty,
+    restartQuiz,
   } = useQuiz();
 
   const calculateTimeBasedOnDifficulty = () => {
@@ -33,30 +30,9 @@ function FinishScreen({ setExplosion }) {
   const totalmins = Math.floor((selectedQuestions * calculateTimeBasedOnDifficulty()) / 60);
   const totalsecs = selectedQuestions * calculateTimeBasedOnDifficulty() - totalmins * 60;
 
-  const LeaderBoardData = {
-    username: username,
-    total_questions: selectedQuestions,
-    scored_points: points,
-    time_taken: secondsRemaining === -1 ? selectedQuestions * calculateTimeBasedOnDifficulty() : secondsRemaining,
-    total_points: maxPoints,
-    total_time: selectedQuestions * calculateTimeBasedOnDifficulty(),
-  };
-
-  const queryClient = useQueryClient();
-  const { mutate } = useMutation({
-    mutationFn: createLeatherBoard,
-    onSuccess: () => {
-      toast.success("Score saved. Check the leaderboard");
-      queryClient.invalidateQueries({ queryKey: ["leatherboards"] });
-    },
-    onError: () => {
-      toast.error("error  saving score to leaderboard");
-    },
-  });
   const handleClick = () => {
-    dispatch({ type: "restart" });
+    restartQuiz();
     setExplosion(false);
-    mutate(LeaderBoardData);
   };
 
   return (

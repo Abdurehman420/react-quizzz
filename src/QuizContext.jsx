@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useReducer, useState } from "react";
+import { createContext, useContext, useEffect, useReducer, useState } from "react";
 
 import { useFetchQuestions } from "./hooks/useFetchQuestions";
 
@@ -17,23 +17,28 @@ function QuizProvider({ children }) {
     secondsRemaining: null,
     difficulty: "medium",
   };
-  const { data } = useFetchQuestions();
-
-  const fetchQuestions = useCallback(() => {
-    try {
-      const shuffledData = data
-        .map((question) => ({
-          ...question,
-          options: [...question.options],
-        }))
-        .sort(() => Math.random() - 0.5);
-      dispatch({ type: "dataReceived", payload: shuffledData });
-    } catch (err) {}
-  }, [data]);
+  const [key, setKey] = useState(0);
+  const { data, error } = useFetchQuestions();
 
   useEffect(() => {
-    fetchQuestions();
-  }, [fetchQuestions]);
+    if (!data) return;
+
+    const shuffledData = data
+      .map((question) => ({
+        ...question,
+        options: [...question.options],
+      }))
+      .sort(() => Math.random() - 0.5);
+    dispatch({ type: "dataReceived", payload: shuffledData });
+    if (error) {
+      dispatch({ type: "dataFailed" });
+    }
+  }, [data, error, key]);
+
+  const restartQuiz = () => {
+    dispatch({ type: "restart" });
+    setKey((prevKey) => prevKey + 1);
+  };
 
   function reducer(state, action) {
     const quesion = state.questions[state.index];
@@ -45,7 +50,7 @@ function QuizProvider({ children }) {
         return { ...state, status: "error" };
       case "setUsername":
         return { ...state, username: action.payload };
-      case "start":
+      case "start": {
         let timeLimitInSeconds;
         switch (state.difficulty) {
           case "easy":
@@ -67,6 +72,7 @@ function QuizProvider({ children }) {
           secondsRemaining: timeLimitInSeconds,
           questions: state.questions.slice(0, action.payload),
         };
+      }
       case "newAnswer":
         return {
           ...state,
@@ -84,7 +90,6 @@ function QuizProvider({ children }) {
       case "finished":
         return { ...state, status: "finished" };
       case "restart":
-        fetchQuestions();
         return {
           ...initialState,
 
@@ -144,6 +149,7 @@ function QuizProvider({ children }) {
         setSelectedQuestions,
         question,
         difficulty,
+        restartQuiz,
       }}
     >
       {children}

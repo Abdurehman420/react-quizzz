@@ -118,6 +118,7 @@ function StartScreen() {
 
         <div className="numberOfquestions" style={{ marginTop: "20px" }}>
           <p className=" uppercase font-regular lg:text-xl">Select the number of questions</p>
+          <p className=" max-w-lg">You will score points based on the number of questions you select</p>
           <select
             value={selectedQuestions === numberOfQuestions ? "all" : selectedQuestions}
             onChange={handleQuestionCountChange}
@@ -126,10 +127,12 @@ function StartScreen() {
             <option value="all">all({numberOfQuestions})</option>
             <option value="5">5</option>
             <option value="10">10</option>
+            <option value="20">20</option>
           </select>
         </div>
         <div className="difficulty numberOfquestions">
           <p className=" uppercase font-regular lg:text-xl">Select Difficulty Level</p>
+          <p className=" text-sm">The higher the difficulty , the lesser time you have to answer the quiz questions</p>
           <select value={difficulty} onChange={handleDifficultyChange} className="   w-[52%] text-[16px] lg:text-lg">
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>

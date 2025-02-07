@@ -43,10 +43,50 @@ function LeaderBoaardTable({ data, isLoggedIn }) {
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
+  const RankCell = ({ row }) => {
+    const index = row.index;
+    if (index === 0) {
+      return (
+        <div className=" flex justify-center">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+              fill="#FFD700"
+            />
+          </svg>
+        </div>
+      );
+    } else if (index === 1) {
+      return (
+        <div className=" flex justify-center">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+              fill="#C0C0C0"
+            />
+          </svg>
+        </div>
+      );
+    } else if (index === 2) {
+      return (
+        <div className=" flex justify-center">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+              fill="#CD7F32"
+            />
+          </svg>
+        </div>
+      );
+    } else {
+      return index + 1;
+    }
+  };
+
   const columns = [
     {
       header: "Rank",
-      accessorFn: (row, index) => index + 1,
+      cell: RankCell,
     },
     {
       header: "Username",
@@ -100,12 +140,12 @@ function LeaderBoaardTable({ data, isLoggedIn }) {
   return (
     <>
       <input type="text" value={filtering} onChange={(e) => setFiltering(e.target.value)} placeholder="Search" />
-      <table className="    ">
+      <table className="       ">
         <thead className=" text-[11px] sm:text-[16px] lg:text-[18px]  text-wrap ">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th key={header.id} onClick={header.column.getToggleSortingHandler()}>
+                <th key={header.id} className=" !text-center" onClick={header.column.getToggleSortingHandler()}>
                   {flexRender(header.column.columnDef.header, header.getContext())}{" "}
                   {{ asc: "▲", desc: "▼" }[header.column.getIsSorted() ?? null]}
                 </th>
@@ -115,14 +155,16 @@ function LeaderBoaardTable({ data, isLoggedIn }) {
           ))}
         </thead>
 
-        <tbody className=" text-[12px] sm:text-sm lg:text-[16px]">
+        <tbody className=" text-[12px] sm:text-sm lg:text-[16px] min-h-[50vh] ">
           {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
+            <tr key={row.id} className="!text-center">
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())} </td>
+                <td key={cell.id} className=" !text-center">
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}{" "}
+                </td>
               ))}
               {isLoggedIn && (
-                <td className="DeleteTableRow" onClick={() => handleClick(row)} disabled={isLoading}>
+                <td className="DeleteTableRow text-center" onClick={() => handleClick(row)} disabled={isLoading}>
                   <MdDelete size={25} />
                 </td>
               )}
