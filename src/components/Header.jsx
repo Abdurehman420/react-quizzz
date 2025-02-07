@@ -21,11 +21,22 @@ function Header({ setShowTable, setShowLoginForm, isLoggedIn, setIsLoggedIn, set
 
   return (
     <header className="app-header container mx-auto">
-      <img src="./nabiSaw.jpg" alt="" className=" h-10 w-10" />
+      <img src="./logo.svg" alt="" className=" h-12 w-12" />
       <div className=" right">
-        {isLoggedIn && <button onClick={() => setShowQuestionForm((prev) => !prev)}>Add a Question</button>}
+        {isLoggedIn && (
+          <button
+            className=" shadow-neoButton border-2 border-black rounded-sm"
+            onClick={() => setShowQuestionForm((prev) => !prev)}
+          >
+            Add a Question
+          </button>
+        )}
         {isLoggedIn ? (
-          <button onClick={() => mutate()} disabled={isPending}>
+          <button
+            onClick={() => mutate()}
+            disabled={isPending}
+            className=" shadow-neoButton border-2 border-black rounded-sm"
+          >
             {isPending ? "Logging out..." : "Logout"}
           </button>
         ) : (
